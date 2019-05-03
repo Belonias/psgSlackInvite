@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = 'randomstring'
 
 @app.route("/home")
 def landing_page():
