@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<div class="content-section">
+		<form method="POST" action="">
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Join Today!</legend>
+				<dir class="form-group">
+					{{ form.hidden_tag() }}
+					{{ form.email.label(class="form-control") }}
+					{{ form.email(class="form-control form-control-lg") }}
+				</dir>
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn-outline-info") }}
+			</div>
+		</form>
+{% endblock content %}
