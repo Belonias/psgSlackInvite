@@ -1,10 +1,16 @@
 body {
-  background: #fafafa;
+  /* background: #fafafa; */
   color: #333333;
   margin-top: 5rem;
+  background: #1e5799;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #444444;
 }
 
@@ -30,6 +36,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+  box-shadow: 0px 0px 20px #3d3d3e;
 }
 
 .article-title {
@@ -54,7 +61,7 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+  border-bottom: 1px solid #e3e3e3;
 }
 
 .article-metadata a:hover {
@@ -77,4 +84,51 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+#email {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.email-label {
+  border: none;
+  font-weight: 900;
+  font-size: 25px;
+  text-align: center;
+}
+
+.email-submit {
+  padding-inline-start: 40px;
+  text-align: center;
+}
+
+.email-submit input {
+  padding: 10px;
+  border-radius: .3rem;
+  transition: 0.2s ease-in-out;
+}
+
+.email-header {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 991px) {
+  #email {
+    width: 100%;
+  }
+
+  .email-submit,
+  #email,
+  .email-form {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #email {
+    font-size: 14px;
+  }
 }
