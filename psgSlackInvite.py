@@ -7,9 +7,28 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 
-@app.route("/home")
-def landing_page():
-	return render_template('home.html')
+@app.route("/welcome")
+def welcome():
+	return render_template('welcome.html')
+
+
+@app.route("/already_in_team")
+def already_in_team_error():
+	'''User is already member in the team'''
+	return render_template('already_in_team.html')
+
+
+@app.route("/already_invited")
+def already_invited_error():
+	'''User has already invited'''
+	return render_template('already_invited.html')
+
+
+@app.route("/invalid_email")
+def invalid_email_error():
+	'''User has already invited'''
+	return render_template('invalid_email.html')
+
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/invite", methods=['GET', 'POST'])
@@ -20,10 +39,20 @@ def invite():
 		print(invite_slack_result)
 		if invite_slack_result["ok"]:
 			flash('Invite send at {}'.format(form.email.data, 'success'))
-		else:
-			flash(invite_slack_result)
-		return redirect(url_for('landing_page'))
+			return(redirect(url_for('welcome')))
+		elif invite_slack_result["ok"] is False and invite_slack_result["error"] == "already_in_team":
+			flash('There is already a user in the team with the email {}'.format(form.email.data, 'error'))
+			return(redirect(url_for('already_in_team_error')))
+		elif invite_slack_result["ok"] is False and invite_slack_result["error"] == "already_invited":
+			flash('The invitation has been sent. {}'.format(form.email.data, 'error'))
+			return(redirect(url_for('already_invited_error')))
+		elif invite_slack_result["ok"] is False and invite_slack_result["error"] == "already_invited":
+			flash('The email {} is invalid'.format(form.email.data, 'error'))
+			flash('Note that slack does not recognise some email addresses'.format())
+			return(redirect(url_for('invalid_email_error')))
+
 	return render_template('invite.html', title='Invite', form=form)
+
 
 def invite_to_slack(user_email):
 	slack_request = 'https://slack.com/api/users.admin.invite?token='
@@ -34,6 +63,7 @@ def invite_to_slack(user_email):
 	data = r.json()
 	print(data["ok"])
 	return data
+
 
 if __name__ == '__main__':
 	app.run()
