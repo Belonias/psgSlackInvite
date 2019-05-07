@@ -44,7 +44,7 @@ def invite():
 			flash('There is already a user in the team with the email {}'.format(form.email.data, 'error'))
 			return(redirect(url_for('already_in_team_error')))
 		elif invite_slack_result["ok"] is False and invite_slack_result["error"] == "already_invited":
-			flash('The invitation has already been sent. {}'.format(form.email.data, 'error'))
+			flash('The invitation has already been sent at {}'.format(form.email.data, 'error'))
 			return(redirect(url_for('already_invited_error')))
 		elif invite_slack_result["ok"] is False and invite_slack_result["error"] == "already_invited":
 			flash('The email {} is invalid'.format(form.email.data, 'error'))
